@@ -238,3 +238,135 @@ let age = 22;
 
 age = 23;
 ```
+
+# Why Using Global Variables is Bad in JavaScript
+
+A **global variable** is a variable declared outside functions or blocks, making it accessible from anywhere in the program.
+
+```js
+let name = "Musharaf"; // Global variable
+```
+
+Global variables are bad because:
+
+1. They can be modified from anywhere  
+2. Cause naming conflicts  
+3. Make debugging difficult  
+4. Reduce code reusability  
+5. Stay in memory longer  
+
+So, prefer **local variables** and **function scope**.
+
+Using too many global variables is considered bad practice.
+
+---
+
+# 1. Can Be Modified from Anywhere
+
+Any part of the program can change the value.
+
+```js
+let count = 10;
+
+function update() {
+  count = 100;
+}
+
+update();
+
+console.log(count); // 100
+```
+
+Problem:  
+It becomes hard to track where the value changed.
+
+---
+
+# 2. Causes Naming Conflicts
+
+Another file or function may use the same variable name.
+
+```js
+let user = "Krish";
+
+// Somewhere else
+let user = "John"; // Error
+```
+
+Problem:  
+Variables may clash in large projects.
+
+---
+
+# 3. Hard to Debug
+
+If many functions modify the same variable, finding bugs becomes difficult.
+
+```js
+let score = 0;
+
+function add() {
+  score++;
+}
+
+function reset() {
+  score = 0;
+}
+```
+
+Problem:  
+Any function can unexpectedly change the value.
+
+---
+
+# 4. Makes Code Less Reusable
+
+Functions depending on global variables are harder to reuse.
+
+Bad Example:
+
+```js
+let tax = 10;
+
+function calculate(price) {
+  return price + tax;
+}
+```
+
+Better Example:
+
+```js
+function calculate(price, tax) {
+  return price + tax;
+}
+```
+
+Now the function is reusable.
+
+---
+
+# 5. Memory Issues
+
+Global variables stay in memory for the entire program execution.
+
+Problem:  
+Unnecessary memory usage.
+
+---
+
+# Best Practice
+
+* Avoid global variables whenever possible
+
+* Use **local variables**, **function parameters**, `let`, and `const`.
+
+Example:
+
+```js
+function greet() {
+  const name = "Krish";
+  console.log(name);
+}
+
+greet();
+```

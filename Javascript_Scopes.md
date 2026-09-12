@@ -123,3 +123,118 @@ There are mainly **4 scopes**:
 2. **Function Scope** – Accessible only inside a function  
 3. **Block Scope** – Accessible only inside `{}`  
 4. **Lexical Scope** – Child functions can access parent variables
+
+
+# Why We Should Avoid Using `var` in JavaScript
+
+We avoid `var` because:
+
+1. It is **function scoped**, not block scoped  
+2. It allows **re-declaration**  
+3. Hoisting can cause bugs (`undefined`)  
+4. It may create unexpected global variables  
+
+So, modern JavaScript uses **`let`** and **`const`** instead.
+
+---
+
+# 1. `var` is Function Scoped (Not Block Scoped)
+
+`var` ignores block `{}` scope.
+
+```js
+if (true) {
+  var age = 22;
+}
+
+console.log(age); // 22
+```
+
+Problem:  
+The variable is accessible outside the block, which can lead to bugs.
+
+With `let`:
+
+```js
+if (true) {
+  let age = 22;
+}
+
+console.log(age); // Error
+```
+
+---
+
+# 2. Re-declaration is Allowed
+
+`var` allows redeclaring the same variable.
+
+```js
+var name = "Krish";
+var name = "John";
+
+console.log(name); // John
+```
+
+Problem:  
+You may accidentally overwrite variables.
+
+With `let`:
+
+```js
+let name = "Krish";
+let name = "John"; // Error
+```
+
+---
+
+# 3. Hoisting Can Cause Confusion
+
+`var` gets hoisted and initialized as `undefined`.
+
+```js
+console.log(a); // undefined
+
+var a = 10;
+```
+
+This can create unexpected behavior.
+
+With `let`:
+
+```js
+console.log(a); // Error
+
+let a = 10;
+```
+
+`let` and `const` use **Temporal Dead Zone (TDZ)**, making code safer.
+
+---
+
+# 4. Can Accidentally Become Global
+
+Using `var` carelessly may pollute the global scope.
+
+```js
+var user = "Krish";
+```
+
+This may create issues in large applications.
+
+---
+
+# So Best is 
+
+* Use **`const`** by default  
+* Use **`let`** when value changes  
+* Avoid **`var`**
+
+Example:
+
+```js
+const name = "Krish";
+let age = 22;
+
+age = 23;
+```
